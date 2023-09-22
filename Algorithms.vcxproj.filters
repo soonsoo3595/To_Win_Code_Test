@@ -13,10 +13,31 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="소스 파일\백준문제">
+      <UniqueIdentifier>{a42e259f-6902-4547-ba21-a3329fc373c8}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Algorithms.cpp">
       <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="ex_next_permuation.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="재귀함수로만드는순열.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Split.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="1159.cpp">
+      <Filter>소스 파일\백준문제</Filter>
+    </ClCompile>
+    <ClCompile Include="2979.cpp">
+      <Filter>소스 파일\백준문제</Filter>
+    </ClCompile>
+    <ClCompile Include="10988.cpp">
+      <Filter>소스 파일\백준문제</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
