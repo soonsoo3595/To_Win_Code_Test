@@ -3,15 +3,15 @@
 
 using namespace std;
 
+
 int main()
 {
-	string a;
-	getline(cin, a);
+	int a, b, c;
+	
+	pair<int, int> pr = { 1, 2 };
+	tuple<int, int, int> tp = make_tuple(5, 7, 8);
 
-	cout << a;
+	tie(a, b, c) = tp;
 
-	getline(cin, a);
-
-
-	cout << a;
+	cout << a << b << c;
 }
