@@ -30,14 +30,17 @@
     <ClCompile Include="Split.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="1159.cpp">
+    <ClCompile Include="1629.cpp">
       <Filter>소스 파일\백준문제</Filter>
     </ClCompile>
-    <ClCompile Include="2979.cpp">
+    <ClCompile Include="1940.cpp">
       <Filter>소스 파일\백준문제</Filter>
     </ClCompile>
-    <ClCompile Include="10988.cpp">
+    <ClCompile Include="4375.cpp">
       <Filter>소스 파일\백준문제</Filter>
+    </ClCompile>
+    <ClCompile Include="2559.cpp">
+      <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
