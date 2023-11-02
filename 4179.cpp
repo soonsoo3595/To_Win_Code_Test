@@ -60,7 +60,7 @@ void BFS1(queue<pair<int, int>>& q)
             q.push({ ny, nx });
             visited1[ny][nx] = visited1[y][x] + 1;
         }
-        
+
     }
 }
 
@@ -80,6 +80,7 @@ void BFS2(queue<pair<int, int>>& q)
 
             if (ny < 0 || nx < 0 || ny >= R || nx >= C) continue;
             if (visited2[ny][nx] || arr[ny][nx] == '#') continue;
+            if (visited1[ny][nx] <= visited2[y][x] + 1) continue; // 불이 번진 곳은 지나갈 수 없음(불이 번지는 시간보다 늦게 도착한 경우
 
             q.push({ ny, nx });
             visited2[ny][nx] = visited2[y][x] + 1;
@@ -110,9 +111,12 @@ int main()
 
     queue<pair<int, int>> q;
 
-    for (auto p : v2)
+    if (v2.size())
     {
-        q.push(p);
+        for (auto p : v2)
+        {
+            q.push(p);
+        }
     }
 
     BFS1(q);
@@ -123,51 +127,20 @@ int main()
     }
 
     BFS2(q);
-    // Print();
+    Print();
 
     int answer = INT_MAX;
 
-    // 위쪽 가장자리
-    for (int i = 0; i < C; i++)
-    {
-        if (arr[0][i] == '#') continue;
-        if (visited2[0][i] == 0) continue;
-        if (visited1[0][i] > visited2[0][i])
-        {
-            answer = min(answer, visited2[0][i]);
-        }
-    }
-
-    for (int i = 0; i < C; i++)
-    {
-        if (arr[R - 1][i] == '#') continue;
-        if (visited2[R - 1][i] == 0) continue;
-
-        if (visited1[R - 1][i] > visited2[R - 1][i])
-        {
-            answer = min(answer, visited2[R - 1][i]);
-        }
-    }
-
     for (int i = 0; i < R; i++)
     {
-        if (arr[i][0] == '#') continue;
-        if (visited2[i][0] == 0) continue;
-
-        if (visited1[i][0] > visited2[i][0])
+        for (int j = 0; j < C; j++)
         {
-            answer = min(answer, visited2[i][0]);
-        }
-    }
+            if(i != 0 && i != R - 1 && j != 0 && j != C - 1)
+				continue;
 
-    for (int i = 0; i < R; i++)
-    {
-        if (arr[i][C - 1] == '#') continue;
-        if (visited2[i][C - 1] == 0) continue;
+            if (arr[i][j] == '#') continue;
 
-        if (visited1[i][C - 1] > visited2[i][C - 1])
-        {
-            answer = min(answer, visited2[i][C - 1]);
+            answer = min(answer, visited2[i][j]);
         }
     }
 
