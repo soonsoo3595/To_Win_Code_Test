@@ -1,39 +1,19 @@
 #include <bits/stdc++.h>
-
 using namespace std;
 
-long long T, N;
+int T;
+unsigned long long N, answer;
 
 int main()
 {
     cin >> T;
-
-    while (T--)
+    
+    for (int i = 0; i < T; i++)
     {
         cin >> N;
 
-        long long left = 1;
-        long long right = (long long)1e9;
+        answer = floor((sqrt(1 + 4 * 2 * N) - 1) / 2);
         
-        long long answer = 0;
-
-        while (left <= right)
-        {
-            long long mid = (left + right) / 2;
-
-            if (mid * (mid + 1) / 2 > N)
-            {
-                right = mid - 1;
-            }
-            else
-            {
-                answer = mid;
-                left = mid + 1;
-            }
-        }
-
         cout << answer << '\n';
     }
-
-    return 0;
 }
