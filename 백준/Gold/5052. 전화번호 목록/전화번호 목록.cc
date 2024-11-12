@@ -34,11 +34,6 @@ public:
             current = current->children[ch];
         }
 
-        // 현재 번호를 삽입하기 전에 자식이 존재한다면, 현재 번호가 다른 번호의 접두사임
-        if (!current->children.empty()) {
-            return false;
-        }
-
         current->isEnd = true;
         return true;
     }
