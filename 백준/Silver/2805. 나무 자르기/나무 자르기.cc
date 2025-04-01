@@ -1,61 +1,53 @@
-#include <iostream>
-#include <algorithm>
-#include <vector>
-#include <queue>
+#include <bits/stdc++.h>
 using namespace std;
 
-vector<int> tree;
+long long N, M;
+long long arr[1000001];
+long long tree_max;
 
-int main()
+void Input() 
 {
-	ios_base::sync_with_stdio(false);
-	cin.tie(nullptr);
+    cin >> N >> M;
 
-	int N, M;
-	int max_height = 0;
-	cin >> N >> M;
+    for (int i = 0; i < N; i++)
+    {
+        cin >> arr[i];
+		tree_max = max(tree_max, arr[i]);
+    }
+}
 
-	for (int i = 0; i < N; i++)
-	{
-		int temp;
-		cin >> temp;
+void Solve()
+{
+    long long low = 0;
+    long long high = tree_max;
 
-		max_height = max(max_height, temp);
-		tree.push_back(temp);
-	}
+    while (low <= high)
+    {
+		long long mid = (low + high) / 2;
 
-	int low, mid, high;
+		long long sum = 0;
+        for (int i = 0; i < N; i++)
+        {
+			if (arr[i] > mid)
+				sum += arr[i] - mid;
+        }
 
-	low = 1; high = max_height;
-
-	int ans = 0;
-
-	while (low <= high)
-	{
-		long long cnt = 0;
-
-		mid = (low + high) / 2;
-
-		for (int i = 0; i < N; i++)
-		{
-			if (tree[i] <= mid)
-				continue;
-
-			cnt += (tree[i] - mid);
-		}
-
-		if (cnt >= M)
-		{
+		if (sum >= M)
 			low = mid + 1;
-
-			ans = max(ans, mid);
-		}
 		else
-		{
 			high = mid - 1;
-		}
-	}
+    }
 
-	cout << ans;
+    cout << high;
+}
 
+int main() 
+{
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    Input();
+    Solve();
+
+    return 0;
 }
