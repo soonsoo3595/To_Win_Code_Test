@@ -1,41 +1,46 @@
 #include <bits/stdc++.h>
-
 using namespace std;
 
 int N;
-double dp[10004];
+double arr[10001];
+double dp[10001];
+double answer;
 
-int main()
+void Input()
 {
     cin >> N;
 
-    vector<double> v(N);
-
     for (int i = 0; i < N; i++)
     {
-        cin >> v[i];
+        cin >> arr[i];
+        dp[i] = arr[i];
     }
+       
+}
 
-    dp[0] = v[0];
-
+void Solve()
+{
     for (int i = 1; i < N; i++)
     {
-        dp[i] = max(v[i] * dp[i - 1], v[i]);
+        dp[i] = max(arr[i], dp[i - 1] * arr[i]);
     }
-
-    double answer = 0;
 
     for (int i = 0; i < N; i++)
     {
-        if (answer < dp[i])
-        {
-            answer = dp[i];
-        }
+        answer = max(answer, dp[i]);
     }
 
     cout.precision(3);
     cout << fixed << answer;
-    
-    return 0;
 }
 
+int main() 
+{
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    Input();
+    Solve();
+
+    return 0;
+}
