@@ -1,51 +1,58 @@
 #include <bits/stdc++.h>
-
 using namespace std;
 
 int N;
-vector<int> adj[104];
-int visited[104];
+int adj[104][104];
 
-void DFS(int here)
+void Input()
 {
-    for (int there : adj[here])
-    {
-        if (visited[there]) continue;
-        visited[there] = 1;
-        DFS(there);
-    }
+	cin >> N;
+
+	for (int i = 0; i < N; i++)
+	{
+		for (int j = 0; j < N; j++)
+		{
+			int temp;
+			cin >> temp;
+			adj[i][j] = temp;
+		}
+	}
+}
+
+void Solve()
+{
+
+	for (int k = 0; k < N; k++)
+	{
+		for (int i = 0; i < N; i++)
+		{
+			for (int j = 0; j < N; j++)
+			{
+				if (adj[i][k] && adj[k][j])
+				{
+					adj[i][j] = 1;
+				}
+			}
+		}
+	}
+
+	for (int i = 0; i < N; i++)
+	{
+		for (int j = 0; j < N; j++)
+		{
+			cout << adj[i][j] << ' ';
+		}
+		cout << '\n';
+	}
 }
 
 int main()
 {
-    cin >> N;
+	ios::sync_with_stdio(false);
+	cin.tie(nullptr);
 
-    for (int i = 0; i < N; i++)
-    {
-        for (int j = 0; j < N; j++)
-        {
-            int input;
-            cin >> input;
+	Input();
+	Solve();
 
-            if (input == 1)
-            {
-                adj[i].push_back(j);
-            }
-        }
-    }
-
-    for (int i = 0; i < N; i++)
-    {
-        DFS(i);
-
-        for (int j = 0; j < N; j++)
-        {
-            cout << visited[j] << ' ';
-        }
-
-        memset(visited, 0, sizeof(visited));
-        cout << '\n';
-    }
-
-    return 0;
+	return 0;
 }
