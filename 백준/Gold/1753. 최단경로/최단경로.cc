@@ -1,68 +1,77 @@
 #include <bits/stdc++.h>
-
 using namespace std;
 
 int V, E, K;
-int u, v, w;
 
 struct Edge
 {
-    int node, weight;
+	int v;
+	int cost;
 };
-
-vector<Edge> graph[20004];
+vector<Edge> adj[20004];
 int dist[20004];
 
-void Dijkstra()
+constexpr int DIST_MAX = 987654321;
+
+void Input()
 {
-    priority_queue<pair<int, int>, vector<pair<int, int>>, greater<>> pq;
-    pq.push({ 0, K });
+	cin >> V >> E >> K;
 
-    while (!pq.empty())
-    {
-        int curDist = pq.top().first;
-        int curNode = pq.top().second;
-        pq.pop();
+	for (int i = 0; i < E; i++)
+	{
+		int u, v, w;
+		cin >> u >> v >> w;
+		adj[u].push_back({ v, w });
+	}
+}
 
-        for (Edge& edge : graph[curNode])
-        {
-            int nextNode = edge.node;
-            int nextDist = curDist + edge.weight;
+void Solve()
+{
+	fill(dist, dist + 20004, DIST_MAX);
 
-            if (nextDist < dist[nextNode])
-            {
-                dist[nextNode] = nextDist;
-                pq.push({ nextDist, nextNode });
-            }
-        }
+	priority_queue<pair<int, int>, vector<pair<int, int>>, greater<>> pq;
+	pq.push({ 0, K });
+	dist[K] = 0;
 
-    }
+	while (!pq.empty())
+	{
+		int curDist = pq.top().first;
+		int curNode = pq.top().second;
+		pq.pop();
+
+		for (auto& edge : adj[curNode])
+		{
+			int nextNode = edge.v;
+			int nextDist = curDist + edge.cost;
+
+			if (nextDist < dist[nextNode])
+			{
+				pq.push({ nextDist, nextNode });
+				dist[nextNode] = nextDist;
+			}
+		}
+	}
+
+	for (int i = 1; i <= V; i++)
+	{
+		if (dist[i] == DIST_MAX)
+		{
+			cout << "INF" << '\n';
+		}
+		else
+		{
+			cout << dist[i] << '\n';
+		}
+	}
 }
 
 int main()
 {
-    cin >> V >> E >> K;
+	ios::sync_with_stdio(false);
+	cin.tie(nullptr);
 
-    for (int i = 0; i < E; i++)
-    {
-        cin >> u >> v >> w;
+	Input();
+	Solve();
 
-        graph[u].push_back({ v, w });
-    }
-
-    fill(dist, dist + 20004, INT_MAX);
-    dist[K] = 0;
-
-    Dijkstra();
-
-    for (int i = 1; i <= V; i++)
-    {
-        if (dist[i] == INT_MAX)
-            cout << "INF\n";
-        else
-            cout << dist[i] << '\n';
-    }
-
-    return 0;
+	return 0;
 }
-
