@@ -1,44 +1,49 @@
-#include <iostream>
-#include <algorithm>
-#include <string>
-#include <vector>
+#include <bits/stdc++.h>
 using namespace std;
 
-bool isgroup(string &word) {
-	
-	int len = word.size();
-	vector<char> v;
+int N;
+int answer;
 
-	bool group = true;
-
-	for (int i = 0; i < len; i++) {
-		if (v.end() == find(v.begin(), v.end(), word[i])) {
-			v.push_back(word[i]);
-		}
-		else if (word[i] != word[i - 1]) {
-			group = false;
-		}
-	}
-	
-	return group;
+void Input()
+{
+	cin >> N;
 }
 
-int main() {
-	
-	int N;
-	cin >> N;
+void Solve()
+{
+	for (int i = 0; i < N; i++)
+	{
+		string s;
+		cin >> s;
 
-	string word;
+		bool flag = true;
+		vector<char> v;
+		for (int j = 0; j < s.size(); j++)
+		{
+			if (find(v.begin(), v.end(), s[j]) == v.end())
+			{
+				v.push_back(s[j]);
+			}
+			else if(s[j] != s[j - 1])
+			{
+				flag = false;
+			}
+		}
 
-	int num = 0;
-
-	while (N--) {
-		cin >> word;
-
-		if (isgroup(word))
-			num++;
-		
+		if (flag)
+			answer++;
 	}
 
-	cout << num;
+	cout << answer;
+}
+
+int main()
+{
+	ios::sync_with_stdio(false);
+	cin.tie(nullptr);
+
+	Input();
+	Solve();
+
+	return 0;
 }
