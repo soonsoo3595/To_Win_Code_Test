@@ -1,73 +1,69 @@
 #include <bits/stdc++.h>
-
 using namespace std;
 
-int N;
+int N, M;
 int arr[104];
+int arr2[104];
 
-int T;
-
-void Boy(int num)
+void Input()
 {
-    for (int i = num; i <= N; i += num)
-    {
-        arr[i] = 1 - arr[i];
-    }
+	cin >> N;
+	for (int i = 1; i <= N; i++)
+	{
+		cin >> arr[i];
+	}
+
 }
 
-void Girl(int num)
+void Solve()
 {
-    vector<int> v;
-    v.push_back(num);
+	cin >> M;
+	for (int i = 0; i < M; i++)
+	{
+		int gender, number;
+		cin >> gender >> number;
 
-    arr[num] = 1 - arr[num];
+		if (gender == 1)
+		{
+			for (int i = number; i <= N; i += number)
+			{
+				arr[i] = 1 - arr[i];
+			}
+		}
+		else if (gender == 2)
+		{
+			arr[number] = 1 - arr[number];
 
-    for (int i = 1; num - i >= 1 && num + i <= N; i++)
-    {
-        if (arr[num - i] == arr[num + i])
-        {
-            arr[num - i] = 1 - arr[num - i];
-            arr[num + i] = 1 - arr[num + i];
-        }
-        else
-        {
-            break;
-        }
-    }
+			for (int i = 1; number - i >= 1 && number + i <= N; i++)
+			{
+				if (arr[number - i] == arr[number + i])
+				{
+					arr[number - i] = 1 - arr[number - i];
+					arr[number + i] = 1 - arr[number + i];
+				}
+				else
+				{
+					break;
+				}
+			}
+		}
+	}
+
+	for (int i = 1; i <= N; i++)
+	{
+		cout << arr[i] << ' ';
+		if (i % 20 == 0)
+			cout << '\n';
+	}
 }
 
 int main()
 {
-    cin >> N;
+	ios::sync_with_stdio(false);
+	cin.tie(nullptr);
 
-    for (int i = 1; i <= N; i++)
-    {
-        cin >> arr[i];
-    }
+	Input();
+	Solve();
 
-    cin >> T;
-
-    while (T--)
-    {
-        int gender, num;
-        cin >> gender >> num;
-
-        if (gender == 1)
-        {
-            Boy(num);
-        }
-        else if (gender == 2)
-        {
-            Girl(num);
-        }
-    }
-
-    for (int i = 1; i <= N; i++)
-    {
-        cout << arr[i] << ' ';
-        if (i % 20 == 0)
-            cout << '\n';
-    }
-
-    return 0;
+	return 0;
 }
