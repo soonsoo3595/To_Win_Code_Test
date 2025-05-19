@@ -1,10 +1,10 @@
 #include <bits/stdc++.h>
+#include "unordered_map"
+
 using namespace std;
 
 int K, L;
-vector<string> wait;
-map<string, int> student;
-
+unordered_map<string, int> student;
 
 void Input() 
 {
@@ -14,23 +14,12 @@ void Input()
 	{
 		string s;
 		cin >> s;
-		wait.push_back(s);
+		student[s] = i;
 	}
 }
 
 void Solve()
 {
-	for (int i = 0; i < L; i++)
-	{
-		const string id = wait[i];
-		if (student.find(id) != student.end())
-		{
-			student.erase(id);
-		}
-
-		student.insert({ id, i });
-	}
-
 	vector<pair<string, int>> v(student.begin(), student.end());
 	sort(v.begin(), v.end(), [](auto& a1, auto& a2)
 		{
