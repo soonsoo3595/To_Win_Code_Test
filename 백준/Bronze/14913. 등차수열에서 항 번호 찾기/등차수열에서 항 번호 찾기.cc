@@ -11,36 +11,15 @@ void Input()
 
 void Solve()
 {
-	int idx = 1;
+	int diff = k - a;
 
-	while (true)
+	if ((diff % d == 0) && ((diff / d) >= 0))
 	{
-		int num = a + (idx - 1) * d;
-
-		if (num == k)
-		{
-			cout << idx;
-			break;
-		}
-
-		if (d > 0)
-		{
-			if (num > k)
-			{
-				cout << "X";
-				break;
-			}
-		}
-		else
-		{
-			if (num < k)
-			{
-				cout << "X";
-				break;
-			}
-		}
-
-		idx++;
+		cout << (diff / d + 1);
+	}
+	else
+	{
+		cout << "X";
 	}
 }
 
