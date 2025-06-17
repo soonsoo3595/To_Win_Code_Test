@@ -2,58 +2,70 @@
 
 using namespace std;
 
-int N, M;
-int A, B;
-long long cost[1004];
-vector<pair<int, int>> path[1004];
-
-int main()
+struct Edge
 {
-    ios_base::sync_with_stdio(false);
-    cin.tie(nullptr);
-    cout.tie(nullptr);
+	int v;
+	int w;
+};
 
-    cin >> N >> M;
+int N, M, s, e;
+vector<Edge> adj[1004];
+int dist[1004];
+const int MAX = 987654321;
 
-    for (int i = 0; i < M; i++)
-    {
-        int a, b, c;
-        cin >> a >> b >> c;
+void Input() 
+{
+	cin >> N >> M;
 
-        path[a].push_back({ b, c });
-    }
+	for (int i = 0; i < M; i++)
+	{
+		int A, B, W;
+		cin >> A >> B >> W;
 
-    cin >> A >> B;
+		adj[A].push_back({ B,W });
+	}
 
-    fill(cost, cost + 1004, INT_MAX);
-    cost[A] = 0;
-
-    priority_queue<pair<long long, int>, vector<pair<long long, int>>, greater<>> pq;
-    pq.push({ 0, A });
-
-    while (!pq.empty())
-    {
-        int curPos = pq.top().second;
-        long long curCost = pq.top().first;
-        pq.pop();
-
-        if (curCost > cost[curPos]) continue;
-
-        for (int i = 0; i < path[curPos].size(); i++)
-        {
-            int nextPos = path[curPos][i].first;
-            long long nextCost = curCost + path[curPos][i].second;
-
-            if (nextCost < cost[nextPos])
-            {
-                cost[nextPos] = nextCost;
-                pq.push({ nextCost, nextPos });
-            }
-        }
-    }
-
-    cout << cost[B];
-
-    return 0;
+	cin >> s >> e;
 }
 
+void Solve()
+{
+	fill(dist, dist + 1004, MAX);
+
+	priority_queue<pair<int, int>, vector<pair<int, int>>, greater<>> pq;
+	pq.push({ 0, s });
+
+	while (!pq.empty())
+	{
+		int curNode = pq.top().second;
+		int curDist = pq.top().first;
+		pq.pop();
+
+		if (dist[curNode] < curDist) continue;
+
+		for (const auto& edge : adj[curNode])
+		{
+			int nextNode = edge.v;
+			int nextDist = curDist + edge.w;
+
+			if (nextDist < dist[nextNode])
+			{
+				dist[nextNode] = nextDist;
+				pq.push({ nextDist, nextNode });
+			}
+		}
+	}
+
+	cout << dist[e];
+}
+
+int main() 
+{
+	ios::sync_with_stdio(false);
+	cin.tie(nullptr);
+
+	Input();
+	Solve();
+
+	return 0;
+}
