@@ -3,32 +3,47 @@
 using namespace std;
 
 int N;
+int arr[100004];
 
-int main()
+void Input() 
 {
-    cin >> N;
+	cin >> N;
 
-    priority_queue<int, vector<int>, greater<>> pq;
-
-    for (int i = 0; i < N; i++)
-    {
-        int count; cin >> count;
-        pq.push(count);
-    }
-
-    int sum = 0;
-
-    while (pq.size() > 1)
-    {
-        int A = pq.top(); pq.pop();
-        int B = pq.top(); pq.pop();
-
-        sum += (A + B);
-        pq.push(A + B);
-    }
-
-    cout << sum;
-
-    return 0;
+	for (int i = 0; i < N; i++)
+	{
+		cin >> arr[i];
+	}
 }
- 
+
+void Solve()
+{
+	priority_queue<int, vector<int>, greater<>> pq;
+
+	for (int i = 0; i < N; i++)
+	{
+		pq.push(arr[i]);
+	}
+
+	int answer = 0;
+	while (pq.size() > 1)
+	{
+		int A = pq.top(); pq.pop();
+		int B = pq.top(); pq.pop();
+		int sum = A + B;
+		answer += sum;
+		pq.push(sum);
+	}
+
+	cout << answer;
+}
+
+int main() 
+{
+	ios::sync_with_stdio(false);
+	cin.tie(nullptr);
+
+	Input();
+	Solve();
+
+	return 0;
+}
